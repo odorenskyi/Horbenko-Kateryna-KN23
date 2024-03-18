@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1710105799 source:d:\university\secondhalf\bmtp\horbenko-kateryna-kn23\lab08\prj\testdriver\main.cpp
+	<iostream>
+	<iomanip>
+	<limits>
+	"ModulesHorbenko.h"
+
+1710089597 d:\university\secondhalf\bmtp\horbenko-kateryna-kn23\lab08\prj\mod\moduleshorbenko.h
+
