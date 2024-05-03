@@ -2,8 +2,10 @@
 1710089559 source:d:\university\secondhalf\bmtp\horbenko-kateryna-kn23\lab08\prj\moduleshorbenko\main.cpp
 	<cmath>
 
-1712527444 source:d:\university\secondhalf\bmtp_1\horbenko-kateryna-kn23\lab08\prj\moduleshorbenko\main.cpp
+1714763654 source:d:\university\secondhalf\bmtp_1\horbenko-kateryna-kn23\lab08\prj\moduleshorbenko\main.cpp
 	<cmath>
 	<iostream>
 	<string>
+	<fstream>
+	<ctime>
 

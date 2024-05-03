@@ -1,6 +1,10 @@
 #include <cmath>
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <ctime>
+
+using namespace std;
 
 //=======================LAB8.1=======================
 
@@ -8,7 +12,7 @@ float s_calculation (float x, float y, float z)
 {
     if (x < 2)
     {
-        std::cout << "'Nan' Помилка, значення X менше 2 " << std::endl;
+        cout << "'Nan' Помилка, значення X менше 2 " << endl;
         return 0;
     }else
     {
@@ -18,9 +22,9 @@ float s_calculation (float x, float y, float z)
 
 //=======================LAB9.1=======================
 
-std::string tornado_category(int speed)
+string tornado_category(int speed)
 {
-    std::string category;
+    string category;
 
     if (speed >= 64 && speed <= 116) {
         category = "Категорія торнадо: FO\nЧастота: 38,9%";
@@ -75,3 +79,89 @@ unsigned int Bits(unsigned int num) {
 
     return (num >> 15) ? (16 - count) : count;
 }
+
+//=======================LAB10.1=======================
+
+void processfile(const string& inputFileName, const string& outputFileName) {
+    ifstream inputFile(inputFileName);
+    ofstream outputFile(outputFileName);
+
+    string content((istreambuf_iterator<char>(inputFile)), istreambuf_iterator<char>());
+    inputFile.close();
+
+    int charCount = content.size();
+
+    string words[] = {"програма", "модуль", "студент", "програміст"};
+    bool wordFound[] = {false, false, false, false};
+
+    for (int i = 0; i < 4; i++) {
+        size_t pos = content.find(words[i]);
+        while (pos != string::npos) {
+            wordFound[i] = true;
+            pos = content.find(words[i], pos + 1);
+        }
+    }
+
+    outputFile << " ====================================" << endl;
+    outputFile << "||Автор: Горбенко Катерина          ||" << endl;
+    outputFile << "||Установа: Центральноукраїнський   ||" << endl;
+    outputFile << "||національний технічний університет||" << endl;
+    outputFile << "||Місто: Кропівницький              ||" << endl;
+    outputFile << "||Країна: Україна                   ||" << endl;
+    outputFile << "||Рік розробки: 2024                ||" << endl;
+    outputFile << " ====================================" << endl;
+    outputFile << "Кількість символів у вхідному файлі: " << charCount << endl;
+    outputFile << "======================================" << endl;
+    outputFile << "Результати перевірки на наявність слів:" << endl;
+
+    for (int i = 0; i < 4; i++) {
+        outputFile << words[i] << ": " << (wordFound[i] ? "Знайдено" : "Не знайдено") << endl;
+    }
+
+    outputFile << "======================================" << endl;
+    outputFile.close();
+
+    cout << "Операція завершена. Результати записані у вихідний файл." << endl;
+}
+
+//=======================LAB10.2=======================
+
+void appendfileInfo(const string& filename) {
+
+    ofstream file(filename, ios_base::app);
+
+    time_t currentTime = time(nullptr);
+    string dateTime = asctime(localtime(&currentTime));
+
+    ifstream inputFile(filename);
+    int digitCount = 0;
+    char ch;
+    while (inputFile.get(ch)) {
+        if (isdigit(ch)) {
+            digitCount++;
+        }
+    }
+
+    file << "Кількість цифр: " << digitCount << "\n";
+    file << "Дата та число: " << dateTime;
+    file.close();
+}
+
+//=======================LAB10.3=======================
+
+void binary(float x, float y, float z, unsigned int b, const string& outputFileName) {
+    ofstream outputsFile(outputFileName, ios_base::app);
+
+    outputsFile << "Результат функцій ModulesHorbenko.h:" << endl;
+    outputsFile << "s_calculation(" << x << ", " << y << ", " << z << "): " << s_calculation(x, y, z) << endl;
+
+    outputsFile << "Число у двійковому коді: " << b << ": ";
+    for (int i = 31; i >= 0; i--) {
+        unsigned int mask = 1 << i;
+        outputsFile << ((b & mask) ? '1' : '0');
+    }
+    outputsFile << endl;
+
+    outputsFile.close();
+}
+
